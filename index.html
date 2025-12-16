@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 機率探險家：獨立事件教學單元</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <audio id="sound-flip" src="flip.mp3" preload="auto"></audio>
+    <audio id="sound-roll" src="roll.mp3" preload="auto"></audio>
+    <audio id="sound-incorrect" src="incorrect.mp3" preload="auto"></audio>
+    <audio id="sound-correct" src="correct.mp3" preload="auto"></audio>
+    <header>
+        <h1>🪙 機率探險家：破解運氣的真相 📈</h1>
+        <p>國小高年級至國中七年級數學單元：基礎機率與獨立事件</p>
+    </header>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="#section-introduction">單元導論</a></li>
+            <li><a href="#section-short">I: 短期實驗</a></li>
+            <li><a href="#section-long">II: 大數法則</a></li>
+            <li><a href="#section-proof">III: 獨立事件</a></li>
+            <li><a href="#section-summary">總結回顧</a></li>
+            <li><a href="quiz.html"><strong>練習測驗 (新頁面)</strong></a></li>
+        </ul>
+    </nav>
+    <main>
+        <section class="challenge-box introduction-box" id="section-introduction">
+            <h2>✨ 歡迎來到機率探險家：單元導論與學習目標</h2>
+            <p class="introduction-text">在這個單元中，我們將透過互動式的擲硬幣和擲骰子實驗，探索機率世界的兩大核心支柱：<strong>大數法則 (Law of Large
+                    Numbers)</strong> 和 <strong>獨立事件 (Independent Events)</strong>。</p>
+
+            <div class="info-box goal-list">
+                <h3>🚀 本單元的學習目標：</h3>
+                <ul>
+                    <li><strong>分辨差異：</strong> 清楚區分「古典機率」（數學機率）與「實驗機率」（實驗頻率）。</li>
+                    <li><strong>理解法則：</strong> 透過大規模模擬，理解並解釋「大數法則」如何讓實驗結果穩定。</li>
+                    <li><strong>破解謬誤：</strong> 運用數據證明每次投擲都是「獨立事件」，駁斥「賭徒的錯誤觀念」。</li>
+                    <li><strong>實際應用：</strong> 將機率思維應用到日常生活中的隨機事件（如遊戲或彩券）。</li>
+                </ul>
+            </div>
+
+            <p>準備好了嗎？點擊下方或導覽列的連結，開始您的機率探險！</p>
+            <a href="#section-short" class="action-button primary-button">開始區塊 I：短期運氣挑戰 🎯</a>
+        </section>
+
+        <section class="challenge-box" id="section-short">
+            <h2>🎯 區塊 I：運氣與直覺挑戰 (短期 N=20)</h2>
+            <p>區塊 I-A 和 I-B 旨在透過少量的手動實驗，讓您感受實驗機率在次數少時的<strong>不穩定性</strong>。請點擊硬幣約 20 次，將結果記錄在學習單上，觀察是否符合你最初的猜想。</p>
+
+            <h3>🪙 區塊 I-A：擲硬幣模擬 (P=50%)</h3>
+            <div id="coin-display">
+                <img id="coin-img" src="coin_head.png" alt="硬幣">
+            </div>
+            <button id="flip-button" class="action-button primary-button">點擊擲硬幣</button>
+            <button id="reset-coin-button" class="action-button secondary-button"
+                style="margin-left: 10px; display: none;">重置挑戰 (從頭開始)</button>
+            <div class="stats">
+                <p>正面次數: <span id="heads-count">0</span></p>
+                <p>反面次數: <span id="tails-count">0</span></p>
+            </div>
+            <div id="frequency-bar-container">
+                <div id="heads-bar" style="width: 50%;">50%</div>
+                <div id="tails-bar" style="width: 50%;">50%</div>
+            </div>
+
+            <div class="info-box">
+                <h3>📖 理論講解：數學機率 vs. 實驗結果</h3>
+                <p>硬幣出現正面的<strong>數學機率 (古典機率)</strong> 永遠是
+                    <strong>50%</strong>。但是，您自己擲幣得到的結果（<strong>實驗結果</strong>），在次數很少時，會因為<strong>「運氣」</strong>而上上下下跑來跑去，結果很不穩定！
+                </p>
+                <p id="short-term-feedback" class="feedback-text"></p>
+            </div>
+
+            <div class="quiz-box" id="quiz-box-1">
+                <h3>❓ 知識測驗 (短期隨機性)</h3>
+                <p>你剛才擲了 10 次，正面是 7 次。你認為下次擲幣正面機率會是？</p>
+                <button class="quiz-option" data-answer="A">A) 50%</button>
+                <button class="quiz-option" data-answer="B">B) 30% (平衡回來)</button>
+                <button class="quiz-option" data-answer="C">C) 70% (跟隨上次結果)</button>
+                <p id="quiz-feedback-1" class="quiz-feedback"></p>
+            </div>
+
+            <h3 style="margin-top: 40px;">🎲 區塊 I-B：擲骰子模擬 (P=1/6)</h3>
+
+            <div class="theory-box"
+                style="background-color: #e0f7fa; padding: 15px; border-radius: 8px; border-left: 5px solid #00bcd4; margin-bottom: 20px;">
+                <h4>🔢 古典機率理論：單次擲骰子</h4>
+                <p>
+                    擲一個公正的六面骰子，總共有 <strong>6</strong> 種可能的結果 (1, 2, 3, 4, 5, 6)。
+                    每種點數都是獨立事件，發生的機率相等。
+                </p>
+                <p>
+                    因此，擲出任一點數（如 4 點）的<strong>古典機率 (P)</strong> 為：
+                    P(特定點數) = 1 / 總結果數 = 1 / 6 ≈ 16.67%
+                </p>
+                <p>
+                    請透過多次擲骰子，觀察短期內實驗結果與這個理論值之間的**隨機偏差**。
+                </p>
+            </div>
+            <div id="dice-display">
+                <img id="dice-img" src="dice_1.png" alt="骰子">
+            </div>
+            <button id="roll-dice-button" class="action-button primary-button">點擊擲骰子</button>
+
+            <p id="dice-short-term-feedback" class="feedback-normal">
+                點擊「擲骰子」按鈕，開始觀察各點數的短期頻率！
+            </p>
+            <div class="stats">
+                <p>總次數: <span id="dice-total-count">0</span></p>
+                <p>上次擲出: <span id="last-dice-result">?</span> 點</p>
+                <p class="highlight">理論機率: 約 16.67%</p>
+            </div>
+
+            <div id="dice-frequency-container">
+                <h3>🔢 點數次數與實驗頻率</h3>
+                <ul id="dice-results-list">
+                </ul>
+                <div id="dice-chart-wrapper" style="margin-top: 20px;">
+                    <canvas id="diceFrequencyBarChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="challenge-box" id="section-long">
+            <h2>📊 區塊 II：大數法則與數據穩定性 (大規模 N=10000)</h2>
+            <p>短期結果不可靠。現在我們執行 10000 次模擬，觀察頻率如何穩定！</p>
+
+            <div style="margin-bottom: 15px;">
+                <strong>請選擇模擬類型：</strong>
+                <button id="select-coin" class="sim-type-button active">硬幣 (結果 1/2)</button>
+                <button id="select-dice" class="sim-type-button">骰子 (結果 1/6)</button>
+            </div>
+
+            <button id="run-simulation-button" class="action-button primary-button">執行 10000 次模擬！</button>
+
+            <div id="simulation-results" class="hidden">
+                <div class="stats-large" id="sim-stats-coin">
+                    <p>總正面次數: <span id="sim-heads">0</span></p>
+                    <p>總反面次數: <span id="sim-tails">0</span></p>
+                    <p class="highlight">整體正面頻率 (P): <span id="sim-prob">0%</span></p>
+                </div>
+
+                <div class="stats-large hidden" id="sim-stats-dice">
+                    <p>總模擬次數: <span id="dice-sim-total">0</span></p>
+                    <p class="highlight">理論機率 (每點): 約 16.67%</p>
+                    <div id="dice-sim-counts" style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+                        <p>1點: <span id="dice-sim-1">0</span> (<span id="dice-freq-1">0%</span>)</p>
+                        <p>2點: <span id="dice-sim-2">0</span> (<span id="dice-freq-2">0%</span>)</p>
+                        <p>3點: <span id="dice-sim-3">0</span> (<span id="dice-freq-3">0%</span>)</p>
+                        <p>4點: <span id="dice-sim-4">0</span> (<span id="dice-freq-4">0%</span>)</p>
+                        <p>5點: <span id="dice-sim-5">0</span> (<span id="dice-freq-5">0%</span>)</p>
+                        <p>6點: <span id="dice-sim-6">0</span> (<span id="dice-freq-6">0%</span>)</p>
+                    </div>
+                </div>
+
+                <h3>頻率穩定性圖 (大數法則)</h3>
+                <canvas id="frequencyChart"></canvas>
+            </div>
+
+            <div class="info-box hidden" id="info-box-2">
+                <h3>📚 理論講解：大數法則 (次數越多，結果越準)
+                </h3>
+                <p>正如圖表所示，當我們擲幣/擲骰的次數（N）變得非常多時，實驗結果 (趨勢線) 就會慢慢穩定下來，並且越來越靠近數學機率 (理論線)。這就是大數法則！</p>
+
+
+                <p>簡單來說，<strong>樣本越多，實驗結果就越接近真實的機率。</strong></p>
+            </div>
+
+            <div class="quiz-box hidden" id="quiz-box-2">
+                <h3>❓ 知識測驗 (大數法則)</h3>
+                <p>如果我們再擲 10000 次硬幣，正面總頻率會偏離 50% 很多嗎？</p>
+                <button class="quiz-option" data-answer="A">A) 會，因為 50% 只是巧合。</button>
+                <button class="quiz-option" data-answer="B">B) 不會，大數法則保證結果會穩定在 50% 附近。</button>
+                <p id="quiz-feedback-2" class="quiz-feedback"></p>
+            </div>
+        </section>
+
+        <section class="challenge-box" id="section-proof">
+            <h2>🔥 區塊 III：獨立事件終極對決 (駁斥賭徒謬誤)</h2>
+            <p><strong>賭徒謬誤挑戰：</strong> 當連續發生某個結果後，下一次的機率會「平衡回來」嗎？</p>
+
+            <div id="proof-guide-box" class="info-box feedback-warning" style="margin-bottom: 20px;">
+                <h3>🛑 數據缺失警告</h3>
+                <p id="proof-guide-text">
+                    您尚未執行「<strong>區塊 II：大數法則與數據穩定性</strong>」中的 10000 次模擬！獨立事件的證明需要龐大的數據基礎。
+                </p>
+                <a href="#section-long" class="action-button primary-button">點擊前往區塊 II 執行模擬 📊</a>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <button id="proof-button-coin" class="action-button primary-button" disabled>分析硬幣數據並證明！</button>
+                <button id="proof-button-dice" class="action-button secondary-button" disabled>分析骰子數據並證明！</button>
+            </div>
+
+            <hr>
+
+            <div id="coin-final-proof" class="hidden proof-area">
+                <h3>🪙 硬幣獨立性證明：連續 5 正面之後</h3>
+                <p>程式分析大數據後，尋找連續出現 5 次正面的所有情況，並統計第 6 次的結果：</p>
+                <canvas id="proofCoinChartCanvas"></canvas>
+                <div class="proof-stats">
+                    <p>在連續 5 正後，第 6 次出現正面機率: <span id="proof-heads-prob" class="proof-stat">0%</span></p>
+                    <p>在連續 5 正後，第 6 次出現反面機率: <span id="proof-tails-prob" class="proof-stat">0%</span></p>
+                </div>
+                <p class="final-conclusion"><strong>&#9989; 結論：</strong> 數據證明，硬幣擲出結果不受過去影響，是**獨立事件**！</p>
+            </div>
+
+            <div id="dice-final-proof" class="hidden proof-area" style="margin-top: 30px;">
+                <h3>🎲 骰子獨立性證明：連續 5 次非 6 點之後</h3>
+                <p>程式分析大數據後，尋找連續出現 5 次「非 6 點」的所有情況，並統計第 6 次是否出現 6 點：</p>
+                <canvas id="proofDiceChartCanvas"></canvas>
+                <div class="proof-stats">
+                    <p>連續 5 次非 6 點後，第 6 次擲出 6 點機率: <span id="proof-six-prob" class="proof-stat">0%</span></p>
+                    <p>連續 5 次非 6 點後，第 6 次擲出非 6 點機率: <span id="proof-non-six-prob" class="proof-stat">0%</span></p>
+                </div>
+                <p class="final-conclusion"><strong>&#9989; 結論：</strong> 數據證明，骰子擲出結果不受過去影響，是**獨立事件**！</p>
+            </div>
+
+            <div class="info-box hidden" id="info-box-3">
+                <h3>🧠 理論精華：獨立事件 — 過去不影響未來</h3>
+                <p>你的數據證明了每次投擲都是<strong>獨立事件</strong>。這表示：前面的結果，對於下次的結果<strong>完全沒有影響</strong>！</p>
+                <p>誤以為連續出現某種結果後，下一個結果會「平衡回來」的錯誤想法，就是著名的「<strong>賭徒的錯誤觀念</strong> (賭徒謬誤)」。</p>
+                <p>數學定義：若事件 A 和事件 B 獨立，則 P(A 交集 B) = P(A) 乘以 P(B)</p>
+            </div>
+
+            <div class="quiz-box hidden" id="quiz-box-3">
+                <h3>❓ 知識測驗 (獨立事件)</h3>
+                <p>你買彩券已經連續 10 次沒中獎了。你認為第 11 次中獎的機率會：</p>
+                <button class="quiz-option" data-answer="A">A) 增加，因為運氣快平衡了。</button>
+                <button class="quiz-option" data-answer="B">B) 保持不變，因為每次開獎都是獨立事件。</button>
+                <p id="quiz-feedback-3" class="quiz-feedback"></p>
+            </div>
+        </section>
+
+        <section class="challenge-box" id="section-summary">
+            <h2>📚 總結回顧：機率核心概念</h2>
+            <p>恭喜您完成「機率探險家」的挑戰！機率不是運氣，而是一種數學規律。以下是本單元的三個核心概念：</p>
+
+            <div class="info-box">
+                <h3 style="color: #00796b;">💡 核心概念對比與應用</h3>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>概念名稱</th>
+                            <th>是什麼意思？</th>
+                            <th>應用情境</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>古典機率</td>
+                            <td><strong>數學上的標準機率</strong>。用「可能數 / 總數」算出來的結果。</td>
+                            <td>擲硬幣出現正面的機率 (1/2)、擲骰子出現 1 點的機率 (1/6)。</td>
+                        </tr>
+                        <tr>
+                            <td>實驗機率</td>
+                            <td><strong>你實際去做了之後得到的結果</strong>。計算「某結果的次數 / 總次數」。</td>
+                            <td>您在區塊 I 中擲幣 20 次得到的正面百分比。</td>
+                        </tr>
+                        <tr>
+                            <td>大數法則</td>
+                            <td><strong>次數越多，實驗結果就越接近古典機率。</strong></td>
+                            <td>區塊 II 中 10000 次模擬後，頻率穩定收斂到 50%。</td>
+                        </tr>
+                        <tr>
+                            <td>獨立事件</td>
+                            <td><strong>「健忘的事件」</strong>。每一次發生，都跟過去發生的所有結果無關。數學定義：P(A 交集 B) = P(A) 乘以 P(B)</td>
+                            <td>擲硬幣、擲骰子、樂透開獎、輪盤賭。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="quiz-box">
+                <h3>🚀 最終挑戰：練習測驗</h3>
+                <p>準備好檢視學習成果了嗎？點擊下方按鈕前往獨立測驗頁面！</p>
+                <a href="quiz.html" class="action-button primary-button">開始機率核心概念測驗 📝</a>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>© 數學教學專案報告 - 基礎機率與獨立事件</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

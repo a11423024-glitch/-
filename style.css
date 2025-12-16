@@ -1,0 +1,785 @@
+/* --- 基礎排版 --- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e3f2fd; /* 淺藍色背景 */
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #2196F3; /* 主藍色 */
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+header p {
+    margin-top: 5px;
+    font-size: 1.1em;
+}
+
+main {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+/* --- 挑戰區塊樣式 --- */
+.challenge-box {
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.challenge-box h2 {
+    color: #0d47a1; /* 深藍色標題 */
+    border-bottom: 3px solid #BBDEFB;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+/* --- 按鈕樣式 --- */
+button {
+    background-color: #4CAF50; /* 綠色 */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s;
+    margin: 10px 5px 10px 0;
+}
+
+button:hover {
+    background-color: #388E3C;
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+button:disabled {
+    background-color: #BDBDBD; /* 灰色禁用 */
+    cursor: not-allowed;
+}
+
+/* --- 互動元素顯示 --- */
+#coin-display, #dice-display {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#coin-img, #dice-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* 硬幣圓形 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-out; /* 用於旋轉動畫 */
+}
+
+/* 骰子特有的方形樣式 */
+#dice-img {
+    border-radius: 15px; /* 骰子方角 */
+    width: 100px;
+    height: 100px;
+}
+
+/* --- 統計數據區塊 --- */
+.stats, .stats-large {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.stats p {
+    margin: 5px 10px;
+    font-weight: bold;
+}
+
+.highlight {
+    color: #E64A19; /* 橘紅色強調 */
+    font-size: 1.1em;
+}
+
+.proof-stats p {
+    margin: 10px;
+    font-size: 1.1em;
+}
+
+/* --- 頻率條 (區塊 I) --- */
+#frequency-bar-container {
+    display: flex;
+    width: 100%;
+    height: 30px;
+    margin-top: 15px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#heads-bar {
+    background-color: #FFC107; /* 黃色 */
+    text-align: center;
+    line-height: 30px;
+    color: #333;
+    font-weight: bold;
+    transition: width 0.5s ease;
+}
+
+#tails-bar {
+    background-color: #9E9E9E; /* 灰色 */
+    text-align: center;
+    line-height: 30px;
+    color: white;
+    font-weight: bold;
+    transition: width 0.5s ease;
+}
+
+/* --- 理論與測驗區塊 --- */
+.info-box {
+    border-left: 5px solid #00BCD4; /* 青色邊欄 */
+    background-color: #e0f7fa;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 6px;
+}
+
+.info-box h3 {
+    color: #00796b;
+    margin-top: 0;
+}
+
+.quiz-box {
+    border: 1px solid #FFCDD2;
+    background-color: #FFF3E0; /* 淺橘色背景 */
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 6px;
+}
+
+.quiz-option {
+    background-color: #64b5f6; /* 測驗按鈕顏色 */
+    margin-right: 10px;
+    transition: background-color 0.2s;
+}
+
+.quiz-option:hover {
+    background-color: #42a5f5;
+}
+
+.quiz-feedback {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.quiz-feedback.correct {
+    background-color: #E8F5E9; /* 淺綠色 */
+    color: #388E3C;
+}
+
+.quiz-feedback.incorrect {
+    background-color: #FFEBEE; /* 淺紅色 */
+    color: #D32F2F;
+}
+
+.feedback-text {
+    font-size: 1.0em;
+    font-weight: bold;
+    padding: 5px 0;
+}
+.feedback-text.incorrect {
+    color: #D32F2F;
+}
+
+.final-conclusion {
+    border-top: 2px dashed #90CAF9;
+    padding-top: 10px;
+    margin-top: 15px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+
+/* --- 圖表與隱藏元素 --- */
+.hidden {
+    display: none;
+}
+
+canvas {
+    max-width: 100%;
+    margin: 15px 0;
+}
+
+/* --- 總結表格樣式 (優化) --- */
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 0.95em; /* 稍微放大 */
+}
+
+.summary-table th, .summary-table td {
+    border: 1px solid #CFD8DC; /* 淺灰色邊框 */
+    padding: 12px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.summary-table th {
+    background-color: #E0F7FA; /* 淺青色背景 */
+    color: #00796b;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.summary-table tbody tr:nth-child(even) {
+    background-color: #F8F8F8;
+}
+
+.summary-table td strong {
+    color: #3f51b5; /* 強調關鍵概念 */
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    margin-top: 30px;
+    background-color: #BDBDBD;
+    color: #424242;
+    font-size: 0.9em;
+}
+/* --- 骰子頻率列表樣式 (新增) --- */
+#dice-frequency-container {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border: 1px dashed #B0BEC5;
+}
+
+#dice-frequency-container h3 {
+    color: #455A64;
+    margin-top: 0;
+    border-bottom: 1px solid #CFD8DC;
+    padding-bottom: 5px;
+}
+
+#dice-results-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+#dice-results-list li {
+    background-color: white;
+    margin-bottom: 5px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1em;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.dice-count, .dice-freq {
+    font-weight: bold;
+    color: #0d47a1; /* 深藍色 */
+    width: 25%;
+    text-align: right;
+}
+/* --- 模擬類型切換按鈕樣式 --- */
+.sim-type-button {
+    background-color: #BBDEFB; /* 淺藍色 */
+    color: #1565C0; /* 深藍色文字 */
+    border: 1px solid #64B5F6;
+    font-weight: bold;
+    padding: 8px 15px;
+    margin: 5px;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.sim-type-button:hover {
+    background-color: #90CAF9;
+}
+
+.sim-type-button.active {
+    background-color: #1E88E5; /* 突出選中的顏色 */
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 確保骰子模擬計數器排版 */
+#dice-sim-counts p {
+    flex-basis: 30%; /* 讓三個項目排一排 */
+    margin: 5px 0;
+    text-align: left;
+}
+/* --- 全域樣式與字體 --- */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6; /* 淺灰色背景 */
+    color: #333;
+}
+
+header {
+    background-color: #00796b; /* 主題色：深青色 */
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    letter-spacing: 2px;
+}
+
+header p {
+    margin-top: 5px;
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+main {
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* --- 導覽列樣式 (Nav Bar) --- */
+.navbar {
+    background-color: #388e3c; /* 導覽列顏色：深綠色 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar li {
+    margin: 0 15px;
+}
+
+.navbar a {
+    display: block;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #4caf50; /* 懸停顏色：亮綠色 */
+}
+
+
+/* --- 區塊與挑戰盒樣式 --- */
+.challenge-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 40px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    border-top: 5px solid #00796b; /* 挑戰盒頂部強調色 */
+}
+
+.challenge-box h2 {
+    color: #00796b;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-top: 0;
+    font-size: 1.8em;
+}
+
+/* --- 按鈕樣式 --- */
+.action-button {
+    background-color: #2196f3; /* 預設藍色 */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.1s;
+    font-weight: bold;
+}
+
+.action-button:hover:not(:disabled) {
+    background-color: #1976d2;
+    transform: translateY(-2px);
+}
+
+.action-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.primary-button { /* 區塊 II 模擬按鈕 */
+    background-color: #ff9800; /* 橘色 */
+}
+.primary-button:hover:not(:disabled) {
+    background-color: #f57c00;
+}
+
+.secondary-button { /* 區塊 III 證明按鈕 */
+    background-color: #e91e63; /* 粉紅色 */
+}
+.secondary-button:hover:not(:disabled) {
+    background-color: #c2185b;
+}
+
+/* 模擬類型按鈕 (硬幣/骰子切換) */
+.sim-type-button {
+    background-color: #e0e0e0;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 8px 15px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.sim-type-button.active {
+    background-color: #00bcd4; /* 青藍色 */
+    color: white;
+    font-weight: bold;
+    border-color: #0097a7;
+}
+
+/* --- 視覺化元素樣式 --- */
+#coin-display, #dice-display {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#coin-img, #dice-img {
+    width: 100px;
+    height: 100px;
+    transition: transform 0.4s ease-out; /* 讓動畫更流暢 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+}
+
+.stats {
+    background-color: #e8f5e9; /* 淺綠色統計區 */
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    font-size: 1.1em;
+}
+
+.stats p {
+    margin: 5px 15px;
+    font-weight: 500;
+}
+
+.highlight {
+    color: #d32f2f; /* 紅色強調理論機率 */
+    font-weight: bold;
+}
+
+/* --- 頻率長條圖樣式 (區塊 I-A) --- */
+#frequency-bar-container {
+    display: flex;
+    height: 30px;
+    margin-top: 15px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+#heads-bar {
+    background-color: #4CAF50; /* 正面綠色 */
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    transition: width 0.5s ease;
+    white-space: nowrap;
+    padding: 0 5px;
+}
+
+#tails-bar {
+    background-color: #FFC107; /* 反面黃色 */
+    color: #333;
+    text-align: center;
+    line-height: 30px;
+    transition: width 0.5s ease;
+    white-space: nowrap;
+    padding: 0 5px;
+}
+
+/* --- 資訊與測驗盒樣式 --- */
+.info-box {
+    border-left: 5px solid #00bcd4; /* 青藍色邊框 */
+    background-color: #e0f7fa; /* 淺青藍背景 */
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+.quiz-box {
+    background-color: #fff3e0; /* 淺橘黃色背景 */
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ffcc80;
+    margin: 20px 0;
+}
+
+.quiz-box h3 {
+    color: #e65100; /* 深橘色 */
+    margin-top: 0;
+}
+
+.quiz-option {
+    background-color: #64b5f6; /* 測驗選項藍色 */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.quiz-option:hover {
+    background-color: #42a5f5;
+}
+
+.quiz-feedback {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.quiz-feedback.correct {
+    background-color: #c8e6c9; /* 綠色背景 */
+    color: #388e3c;
+}
+
+.quiz-feedback.incorrect {
+    background-color: #ffcdd2; /* 紅色背景 */
+    color: #c62828;
+}
+
+.feedback-text.incorrect {
+    color: #c62828;
+    font-weight: bold;
+}
+
+/* --- 骰子頻率列表樣式 (區塊 I-B) --- */
+#dice-results-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 欄佈局 */
+    gap: 10px;
+    font-size: 1.05em;
+}
+
+#dice-results-list li {
+    background-color: #f1f8e9;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border-left: 3px solid #8bc34a;
+}
+
+/* --- 總結表格樣式 --- */
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.summary-table th, .summary-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.summary-table th {
+    background-color: #e0f2f1; /* 淺青色表頭 */
+    color: #004d40;
+    font-weight: bold;
+}
+
+.summary-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.summary-table tr:hover {
+    background-color: #f0f0f0;
+}
+
+
+/* --- 賭徒謬誤證明區樣式 --- */
+.proof-stats {
+    background-color: #ffebee; /* 淺粉色 */
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    font-size: 1.2em;
+    font-weight: bold;
+    border: 1px dashed #d32f2f;
+}
+
+.proof-stat {
+    color: #d32f2f;
+}
+
+.final-conclusion {
+    padding: 10px;
+    background-color: #c8e6c9;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1.1em;
+    margin-top: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #004d40; /* 深綠色底部 */
+    color: white;
+    margin-top: 40px;
+    font-size: 0.9em;
+}
+/* --- 導論區塊專屬樣式 --- */
+.introduction-box {
+    border-top: 5px solid #ff9800; /* 橘色強調色 */
+    background-color: #fff8e1; /* 淺黃色背景 */
+    text-align: center;
+}
+
+.introduction-box h2 {
+    color: #e65100; /* 深橘色標題 */
+    border-bottom: 2px solid #ffcc80;
+}
+
+.introduction-box .introduction-text {
+    font-size: 1.25em;
+    font-weight: 500;
+    margin-bottom: 25px;
+    color: #424242;
+}
+
+.goal-list {
+    text-align: left;
+    background-color: #ffe0b2; /* 目標列表背景色 */
+    border-left: 5px solid #fb8c00;
+    margin: 30px auto;
+    max-width: 800px;
+}
+
+.goal-list ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.goal-list li {
+    padding: 8px 0;
+    border-bottom: 1px dotted #ffb74d;
+    font-weight: 600;
+    color: #424242;
+}
+
+.goal-list li::before {
+    content: "✔️";
+    margin-right: 10px;
+    color: #388e3c; /* 綠色勾選 */
+}
+/* 新增 CSS 關鍵幀動畫 */
+@keyframes spin {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg) }
+}
+
+/* 確保硬幣圖片在動畫期間能保持 3D 效果 */
+#coin-img {
+    transition: transform 0.1s ease-out; /* 讓圖片在顯示結果時平滑過渡 */
+    /* 讓旋轉更像硬幣 */
+    transform-style: preserve-3d; 
+    /* 其他現有樣式，例如 width: 100px; height: 100px; */
+}
+
+/* 硬幣圖片擲出時的類別 */
+.spinning {
+    animation: spin 0.4s cubic-bezier(0.4, 0.0, 0.6, 1.0) infinite; /* 調整為更流暢的旋轉 */
+}
+#dice-img {
+    /* 確保初始狀態 */
+    transition: transform 0.5s ease-out; 
+}
+/* 新增的 Dice 區塊反饋樣式 */
+.feedback-normal {
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 6px;
+    background-color: #f0f0f0;
+    color: #333;
+}
+.feedback-warning {
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 6px;
+    background-color: #ffe0b2; /* 橘色背景 */
+    color: #e65100;
+    font-weight: bold;
+}
+.feedback-success {
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 6px;
+    background-color: #e8f5e9; /* 綠色背景 */
+    color: #2e7d32;
+    font-weight: bold;
+}

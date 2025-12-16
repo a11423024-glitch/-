@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📝 機率核心概念測驗</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Base Reset and Layout */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #f4f7f6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header and Navigation */
+        h2 {
+            color: #004d40; /* 深綠色 */
+            border-bottom: 3px solid #00796b;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #00796b;
+            font-weight: bold;
+            padding: 8px 15px;
+            border: 2px solid #00796b;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        .back-link:hover {
+            background-color: #00796b;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Quiz Item Styling */
+        .quiz-item {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-left: 5px solid #00796b; /* 視覺重點 */
+            border-radius: 8px;
+            background-color: #f8fcfc;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .quiz-question {
+            margin-bottom: 18px;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #212121;
+        }
+        
+        /* Quiz Options Buttons */
+        .quiz-options button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #e0f2f1;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.3s;
+            font-size: 1em;
+            color: #333; /* 確保文字可見 */
+        }
+        .quiz-options button:hover:not(:disabled) {
+            background-color: #b2dfdb;
+            transform: translateY(-2px);
+        }
+
+        /* Feedback and Correct/Incorrect Styles */
+        .quiz-feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.95em;
+            display: none;
+            font-weight: 500;
+        }
+        
+        /* 選擇按鈕的正確和錯誤樣式 */
+        .quiz-options button.correct-answer {
+            background-color: #4caf50 !important; /* Green */
+            color: white;
+            font-weight: bold;
+        }
+        .quiz-options button.incorrect-answer {
+            background-color: #f44336 !important; /* Red */
+            color: white;
+            font-weight: bold;
+        }
+        
+        /* 反饋區域的背景色 */
+        .feedback-correct {
+            background-color: #e8f5e9; /* Light Green */
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        .feedback-incorrect {
+            background-color: #ffebee; /* Light Red */
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+        
+        /* Action Buttons */
+        .action-button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .action-button {
+            flex-grow: 1;
+            padding: 15px;
+            font-size: 1.1em;
+            text-align: center;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .action-button:hover:not(:disabled) {
+            background-color: #004d40;
+        }
+        .action-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    
+    <audio id="sound-correct" src="correct.mp3" preload="auto"></audio>
+    <audio id="sound-incorrect" src="incorrect.mp3" preload="auto"></audio>
+
+    <div class="container">
+        <a href="index.html" class="back-link">
+            &larr; 返回教學單元
+        </a>
+
+        <h2>🎯 機率核心概念測驗 (10 題)</h2>
+        <p>請嘗試回答下列問題，檢視您對古典機率、實驗機率、大數法則和獨立事件的掌握程度。</p>
+        
+        <div class="quiz-container" id="practice-quiz-container">
+            <div class="quiz-item">
+                <p class="quiz-question">1. 在一個公平的骰子實驗中，擲出奇數點數（1、3、5）的古典機率是多少？</p>
+                <div class="quiz-options" data-correct="C">
+                    <button data-option="A" onclick="checkAnswer(this, 'Q1')">A) 1/6</button>
+                    <button data-option="B" onclick="checkAnswer(this, 'Q1')">B) 1/3</button>
+                    <button data-option="C" onclick="checkAnswer(this, 'Q1')">C) 1/2</button>
+                    <button data-option="D" onclick="checkAnswer(this, 'Q1')">D) 2/3</button>
+                </div>
+                <p id="feedback-Q1" class="quiz-feedback"></p>
+            </div>
+
+            <div class="quiz-item">
+                <p class="quiz-question">2. 小明擲硬幣 10 次，記錄到 8 次正面。在這個實驗中，正面的實驗機率是多少？</p>
+                <div class="quiz-options" data-correct="C">
+                    <button data-option="A" onclick="checkAnswer(this, 'Q2')">A) 50%</button>
+                    <button data-option="B" onclick="checkAnswer(this, 'Q2')">B) 1/2</button>
+                    <button data-option="C" onclick="checkAnswer(this, 'Q2')">C) 0.8 (或 80%)</button>
+                    <button data-option="D" onclick="checkAnswer(this, 'Q2')">D) 8/1</button>
+                </div>
+                <p id="feedback-Q2" class="quiz-feedback"></p>
+            </div>
+
+            <div class="quiz-item">
+                <p class="quiz-question">3. 根據大數法則，如果我們將擲硬幣的次數從 20 次增加到 20000 次，關於實驗機率會發生什麼變化？</p>
+                <div class="quiz-options" data-correct="B">
+                    <button data-option="A" onclick="checkAnswer(this, 'Q3')">A) 實驗機率會保持不變。</button>
+                    <button data-option="B" onclick="checkAnswer(this, 'Q3')">B) 實驗機率會更靠近理論機率 50%。</button>
+                    <button data-option="C" onclick="checkAnswer(this, 'Q3')">C) 實驗機率會開始隨機亂跑。</button>
+                    <button data-option="D" onclick="checkAnswer(this, 'Q3')">D) 實驗機率會剛好變成 50%。</button>
+                </div>
+                <p id="feedback-Q3" class="quiz-feedback"></p>
+            </div>
+
+            <div class="quiz-item">
+                <p class="quiz-question">4. 下列哪一個選項最能描述「獨立事件」？</p>
+                <div class="quiz-options" data-correct="C">
+                    <button data-option="A" onclick="checkAnswer(this, 'Q4')">A) 兩個事件發生的機率相等。</button>
+                    <button data-option="B" onclick="checkAnswer(this, 'Q4')">B) 一個事件的結果會影響另一個事件。</button>
+                    <button data-option="C" onclick="checkAnswer(this, 'Q4')">C) 兩個事件的結果不會互相影響。</button>
+                    <button data-option="D" onclick="checkAnswer(this, 'Q4')">D) 兩個事件不可能同時發生。</button>
+                </div>
+                <p id="feedback-Q4" class="quiz-feedback"></p>
+            </div>
+            
+            <div class="quiz-item">
+                <p class="quiz-question">5. 一個輪盤連續 10 次開出黑色。小華認為下次一定會開出紅色來平衡結果。請問下次開出紅色的機率是多少 (假設紅黑機率皆為 50%)？</p>
+                <div class="quiz-options" data-correct="B">
+                    <button data-option="A" onclick="checkAnswer(this, 'Q5')">A) 大於 50%，因為需要平衡回來。</button>
+                    <button data-option="B" onclick="checkAnswer(this, 'Q5')">B) 50%</button>
+                    <button data-option="C" onclick="checkAnswer(this, 'Q5')">C) 小於 50%，因為運氣仍在黑色這邊。</button>
+                    <button data-option="D" onclick="checkAnswer(this, 'Q5')">D) 0%，因為輪盤已經鎖定黑色。</button>
+                </div>
+                <p id="feedback-Q5" class="quiz-feedback"></p>
+            </div>
+
+            <div class="quiz-item">
+                <p class="quiz-question">6. 同時擲兩個公正硬幣，都出現正面的機率是多少？</p>
+                <div class="quiz-options" data-correct="C">
+                    <button data-option="A" onclick="checkAnswer(this, 'Q6')">A) 1/2</button>
+                    <button data-option="B" onclick="checkAnswer(this, 'Q6')">B) 1/3</button>
+                    <button data-option="C" onclick="checkAnswer(this, 'Q6')">C) 1/4</button>
+                    <button data-option="D" onclick="checkAnswer(this, 'Q6')">D) 3/4</button>
+                </div>
+                <p id="feedback-Q6" class="quiz-feedback"></p>
+            </div>
+
+            <div class="quiz-item">
+                <p class="quiz-question">7. 連續擲一個公正骰子三次，三次都擲出「6點」的機率是多少？</p>
+                <div class="quiz-options" data-correct="D">
+                    <button data-option="A" onclick="checkAnswer(this, 'Q7')">A) 1/6</button>
+                    <button data-option="B" onclick="checkAnswer(this, 'Q7')">B) 3/6</button>
+                    <button data-option="C" onclick="checkAnswer(this, 'Q7')">C) 1/18</button>
+                    <button data-option="D" onclick="checkAnswer(this, 'Q7')">D) 1/216</button>
+                </div>
+                <p id="feedback-Q7" class="quiz-feedback"></p>
+            </div>
+
+            <div class="quiz-item">
+                <p class="quiz-question">8. 下列哪一種情境最不可能是獨立事件？</p>
+                <div class="quiz-options" data-correct="C">
+                    <button data-option="A" onclick="checkAnswer(this, 'Q8')">A) 擲一次骰子和擲第二次骰子的結果。</button>
+                    <button data-option="B" onclick="checkAnswer(this, 'Q8')">B) 買一張彩券中獎和買下一張彩券中獎的結果。</button>
+                    <button data-option="C" onclick="checkAnswer(this, 'Q8')">C) 在沒有放回的情況下，從袋子中連續取出兩顆球的結果。</button>
+                    <button data-option="D" onclick="checkAnswer(this, 'Q8')">D) 今天下雨和明天出太陽的結果。</button>
+                </div>
+                <p id="feedback-Q8" class="quiz-feedback"></p>
+            </div>
+
+            <div class="quiz-item">
+                <p class="quiz-question">9. 袋子裡有 3 顆紅球和 7 顆藍球。隨機取出 1 顆球，取出藍球的古典機率是多少？</p>
+                <div class="quiz-options" data-correct="B">
+                    <button data-option="A" onclick="checkAnswer(this, 'Q9')">A) 30%</button>
+                    <button data-option="B" onclick="checkAnswer(this, 'Q9')">B) 70%</button>
+                    <button data-option="C" onclick="checkAnswer(this, 'Q9')">C) 3/7</button>
+                    <button data-option="D" onclick="checkAnswer(this, 'Q9')">D) 1/10</button>
+                </div>
+                <p id="feedback-Q9" class="quiz-feedback"></p>
+            </div>
+
+            <div class="quiz-item">
+                <p class="quiz-question">10. 某人進行 10000 次投籃實驗，命中率穩定在 75%。這 75% 最接近下列哪一種機率概念？</p>
+                <div class="quiz-options" data-correct="B">
+                    <button data-option="A" onclick="checkAnswer(this, 'Q10')">A) 古典機率。</button>
+                    <button data-option="B" onclick="checkAnswer(this, 'Q10')">B) 實驗機率。</button>
+                    <button data-option="C" onclick="checkAnswer(this, 'Q10')">C) 賭徒謬誤。</button>
+                    <button data-option="D" onclick="checkAnswer(this, 'Q10')">D) 獨立事件機率。</button>
+                </div>
+                <p id="feedback-Q10" class="quiz-feedback"></p>
+            </div>
+            
+            <div class="action-button-group">
+                <button id="show-answer-btn" class="action-button" onclick="showAllAnswers()">點擊查看所有答案與解析</button>
+                <button id="hide-answer-btn" class="action-button" onclick="hideAllAnswers()" disabled style="background-color: #f0ad4e;">隱藏答案，重新練習</button>
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        // 1. 獲取音效元素
+        const soundCorrect = document.getElementById('sound-correct');
+        const soundIncorrect = document.getElementById('sound-incorrect');
+        
+        // 2. 建立播放聲音的輔助函數
+        function playSound(audioElement) {
+            if (!audioElement) return;
+            
+            // 停止並重設到開頭，然後播放
+            audioElement.pause();
+            audioElement.currentTime = 0;
+            audioElement.play().catch(e => {
+                // 捕捉瀏覽器可能因使用者未互動而阻止自動播放的錯誤
+                console.error("無法播放音效：", e);
+            });
+        }
+
+        // 測驗答案與解析資料
+        const quizData = [
+            { id: 'Q1', correct: 'C', rationale: '奇數點數有 3 種結果 (1, 3, 5)，總結果有 6 種，古典機率為 3/6 = 1/2。' },
+            { id: 'Q2', correct: 'C', rationale: '實驗機率為 (正面次數)/(總次數) = 8/10 = 0.8。' },
+            { id: 'Q3', correct: 'B', rationale: '大數法則使實驗結果隨著次數增加而趨近理論機率。' },
+            { id: 'Q4', correct: 'C', rationale: '獨立事件的結果互不影響。' },
+            { id: 'Q5', correct: 'B', rationale: '每次輪盤轉動都是獨立事件，機率維持 50%。這是賭徒謬誤常見的錯誤判斷。' },
+            { id: 'Q6', correct: 'C', rationale: 'P(正正) = P(正) x P(正) = 1/2 x 1/2 = 1/4。' },
+            { id: 'Q7', correct: 'D', rationale: 'P(666) = P(6) x P(6) x P(6) = 1/6 x 1/6 x 1/6 = 1/216。' },
+            { id: 'Q8', correct: 'C', rationale: '沒有放回會改變下一次取球的樣本空間和條件機率，故為相依事件。' },
+            { id: 'Q9', correct: 'B', rationale: '取出藍球的古典機率為 (藍球數)/(總球數) = 7/10 = 70%。' },
+            { id: 'Q10', correct: 'B', rationale: '從大量實驗中得出的穩定頻率，是實驗機率的體現。' }
+        ];
+
+        // 檢查單一題目答案
+        function checkAnswer(button, questionId) {
+            const parentDiv = button.closest('.quiz-options');
+            const questionData = quizData.find(q => q.id === questionId);
+            const correctAnswer = questionData.correct;
+            const selectedAnswer = button.getAttribute('data-option');
+            const feedbackElement = document.getElementById('feedback-' + questionId);
+            
+            // 鎖定所有選項
+            parentDiv.querySelectorAll('button').forEach(btn => {
+                btn.disabled = true; 
+            });
+            
+            // 確保「隱藏答案」按鈕啟用
+            document.getElementById('hide-answer-btn').disabled = false;
+
+            // 顯示反饋
+            if (selectedAnswer === correctAnswer) {
+                // 3. 答對時播放正確音效
+                playSound(soundCorrect); 
+                button.classList.add('correct-answer');
+                feedbackElement.innerHTML = '&#9989; <strong>正確！</strong> 解析：' + questionData.rationale;
+                feedbackElement.classList.remove('feedback-incorrect');
+                feedbackElement.classList.add('feedback-correct');
+            } else {
+                // 3. 答錯時播放錯誤音效
+                playSound(soundIncorrect); 
+                button.classList.add('incorrect-answer');
+                // 顯示正確選項
+                parentDiv.querySelector('button[data-option="' + correctAnswer + '"]').classList.add('correct-answer');
+                feedbackElement.innerHTML = '&#10060; <strong>錯誤。</strong> 正確答案為 ' + correctAnswer + '。解析：' + questionData.rationale;
+                feedbackElement.classList.remove('feedback-correct');
+                feedbackElement.classList.add('feedback-incorrect');
+            }
+            feedbackElement.style.display = 'block';
+        }
+
+        // 顯示所有答案和解析的函數
+        function showAllAnswers() {
+            quizData.forEach(q => {
+                const optionsDiv = document.getElementById('feedback-' + q.id).previousElementSibling;
+                const feedbackElement = document.getElementById('feedback-' + q.id);
+                
+                // 顯示正確答案並鎖定選項
+                optionsDiv.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    btn.classList.remove('incorrect-answer');
+                    if (btn.getAttribute('data-option') === q.correct) {
+                        btn.classList.add('correct-answer');
+                    } else {
+                        btn.classList.remove('correct-answer');
+                    }
+                });
+
+                // 顯示解析
+                feedbackElement.innerHTML = '&#9989; <strong>正確答案為 ' + q.correct + '</strong>。解析：' + q.rationale;
+                feedbackElement.classList.remove('feedback-incorrect');
+                feedbackElement.classList.add('feedback-correct');
+                feedbackElement.style.display = 'block';
+            });
+            
+            // 鎖定「查看答案」按鈕，啟用「隱藏答案」按鈕
+            document.getElementById('show-answer-btn').disabled = true;
+            document.getElementById('hide-answer-btn').disabled = false;
+        }
+
+        // 隱藏所有答案和解析的函數 (重置回練習狀態)
+        function hideAllAnswers() {
+            quizData.forEach(q => {
+                const optionsDiv = document.getElementById('feedback-' + q.id).previousElementSibling;
+                const feedbackElement = document.getElementById('feedback-' + q.id);
+                
+                // 解鎖所有選項並移除顏色
+                optionsDiv.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = false;
+                    btn.classList.remove('correct-answer', 'incorrect-answer');
+                });
+
+                // 隱藏解析
+                feedbackElement.style.display = 'none';
+                feedbackElement.textContent = '';
+                feedbackElement.classList.remove('feedback-correct', 'feedback-incorrect');
+            });
+            
+            // 啟用「查看答案」按鈕，鎖定「隱藏答案」按鈕
+            document.getElementById('show-answer-btn').disabled = false;
+            document.getElementById('hide-answer-btn').disabled = true;
+        }
+
+        // 初始化時，確保按鈕狀態正確
+        window.onload = function() {
+            // 確保所有題目選項一開始是可選狀態
+            document.querySelectorAll('.quiz-options button').forEach(btn => {
+                btn.disabled = false;
+            });
+            // 隱藏答案按鈕預設鎖定
+            document.getElementById('hide-answer-btn').disabled = true;
+        }
+    </script>
+</body>
+</html>
