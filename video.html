@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>機率影音教室 - 認識獨立事件</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f0f2f5;
+        }
+        /* 導覽列美化 */
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .nav-link {
+            font-weight: 500;
+            margin: 0 5px;
+        }
+        /* 主卡片設計 */
+        .main-card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .video-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background-color: #000;
+        }
+        /* 筆記區塊 */
+        .note-section {
+            background-color: #f8fbff;
+            border-left: 6px solid #0d6efd;
+            border-radius: 8px;
+        }
+        /* 按鈕自定義 */
+        .btn-custom {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">🎲 機率學習平台</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">🔬首頁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="video.html">📺教學影片</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="quiz.html">✍️測驗</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card main-card p-4 p-md-5 bg-white">
+                    
+                    <div class="text-center mb-5">
+                        <h1 class="display-5 fw-bold text-primary">📺 影音教室</h1>
+                        <p class="lead text-muted">在動手做實驗前，先聽聽專家怎麼解釋「獨立事件」吧！</p>
+                    </div>
+
+                    <div class="video-container mb-5">
+                        <div class="ratio ratio-16x9">
+                            <iframe 
+                                src="https://www.youtube.com/embed/T_UTYtYjv9g" 
+                                title="【觀念】獨立事件" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+
+                    <div class="note-section p-4 mb-5">
+                        <h3 class="h4 fw-bold mb-4">💡 影片重點整理</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-4">
+                                    <span class="badge bg-primary px-3 py-2 mb-2">定義</span> 
+                                    <h5 class="fw-bold">什麼是獨立事件？ <small class="text-muted fw-normal">[00:03:30]</small></h5>
+                                    <p class="ms-1 text-secondary">
+                                        當兩個事件 \(A\) 與 \(B\) 互不影響，且符合公式：
+                                        <div class="text-center my-3 fw-bold text-dark p-2 bg-light rounded">
+                                            \(P(A \cap B) = P(A) \times P(B)\)
+                                        </div>
+                                        這時，我們就稱它們為獨立事件。
+                                    </p>
+                                </div>
+                                <hr class="my-4 opacity-10">
+                                <div class="mb-4">
+                                    <span class="badge bg-success px-3 py-2 mb-2">案例</span> 
+                                    <h5 class="fw-bold">生活中的例子： <small class="text-muted fw-normal">[00:00:20]</small></h5>
+                                    <p class="ms-1 text-secondary">
+                                        如果你和朋友各擲一個骰子，你投出的點數（事件 A）完全不會改變他投出點數（事件 B）的機率。
+                                    </p>
+                                </div>
+                                <hr class="my-4 opacity-10">
+                                <div class="mb-2">
+                                    <span class="badge bg-danger px-3 py-2 mb-2">核心</span> 
+                                    <h5 class="fw-bold">打破迷思： <small class="text-muted fw-normal">[00:11:45]</small></h5>
+                                    <p class="ms-1 text-secondary">
+                                        獨立事件的核心在於「<strong>前一次的結果，對後一次的機率沒有任何影響</strong>」。這也是我們在實驗室中要挑戰的「賭徒謬誤」。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6 text-center text-md-start">
+                            <a href="index.html" class="btn btn-outline-secondary btn-custom w-100 w-md-auto">
+                                ⬅️ 回到實驗室
+                            </a>
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            <a href="quiz.html" class="btn btn-primary btn-custom shadow w-100 w-md-auto">
+                                前往測驗挑戰 🚀
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-4 text-muted">
+        <div class="container border-top pt-3">
+            
+            <small class="mt-1 d-block">影片來源：<a href="https://www.junyiacademy.org/" target="_blank" class="text-decoration-none">均一教育平台 Junyi Academy</a></small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
